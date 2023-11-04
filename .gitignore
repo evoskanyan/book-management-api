@@ -1,0 +1,44 @@
+# Maven
+target/
+.mvn
+!.mvn/wrapper/maven-wrapper.jar
+!.mvn/wrapper/maven-wrapper.properties
+env
+# IDE-specific files
+.idea/
+*.iml
+*.ipr
+*.iws
+
+# Eclipse-specific files
+.classpath
+.project
+.settings/
+
+# Gradle
+build/
+gradle/
+bin/
+buildSrc/
+
+# Compiled Java class files
+*.class
+
+# Log files
+*.log
+
+# IntelliJ IDEA project
+.idea/
+
+# Visual Studio Code
+.vscode/
+
+# macOS
+.DS_Store
+
+# Spring Boot logs
+logs/
+
+# Spring Boot application properties
+application.properties
+application.yml
