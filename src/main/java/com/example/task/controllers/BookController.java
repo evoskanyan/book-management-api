@@ -4,6 +4,7 @@ import com.example.task.dtos.BookDTO;
 import com.example.task.dtos.BookWithCategoryResponseDTO;
 import com.example.task.entities.Book;
 import com.example.task.entities.Category;
+import com.example.task.exceptions.CategoryNotFoundException;
 import com.example.task.services.BookService;
 import com.example.task.services.CategoryService;
 import lombok.RequiredArgsConstructor;
@@ -66,10 +67,12 @@ public class BookController {
     if (file.getSize() > 5 * 1024 * 1024) {
       return ResponseEntity.badRequest().body("File size exceeds the limit.");
     }
+    Category category;
+    try {
 
-    Category category = categoryService.get(categoryName);
+      category = categoryService.get(categoryName);
 
-    if (category == null) {
+    } catch (CategoryNotFoundException ex) {
       category = new Category();
       category.setName(categoryName);
       categoryService.save(category);
@@ -80,7 +83,6 @@ public class BookController {
     book.setAuthor(author);
     book.setCategoryId(category.getId());
 
-    // Extract and store content
     String content;
     try (PDDocument document = PDDocument.load(file.getBytes())) {
       PDFTextStripper textStripper = new PDFTextStripper();
@@ -96,7 +98,6 @@ public class BookController {
   @GetMapping("/search")
   public ResponseEntity<List<Book>> searchBooks(@RequestParam(value = "query") String query) {
     try {
-      // Perform the search using the BookRepository's search method
       List<Book> searchResults = bookService.search(query.toLowerCase());
 
       if (searchResults.isEmpty()) {
