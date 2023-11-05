@@ -1,6 +1,6 @@
 package com.example.task.services;
 
-import com.example.task.entities.Book;
+import com.example.task.models.Book;
 import com.example.task.exceptions.BookNotFoundException;
 import com.example.task.repositories.BookRepository;
 import org.springframework.stereotype.Service;

@@ -1,6 +1,6 @@
 package com.example.task.services;
 
-import com.example.task.entities.Book;
+import com.example.task.models.Book;
 
 import java.util.List;
 

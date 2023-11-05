@@ -1,7 +1,8 @@
 package com.example.task.controllers;
 
 import com.example.task.dtos.CategoryDTO;
-import com.example.task.entities.Category;
+import com.example.task.dtos.categories.AddCategoryRequestDTO;
+import com.example.task.models.Category;
 import com.example.task.services.CategoryService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.ResponseEntity;
@@ -28,6 +29,7 @@ public class CategoryController {
     categoryDTO.setName(category.getName());
     return categoryDTO;
   }
+
   @GetMapping("/by/{name}")
   public CategoryDTO getCategoryByName(@PathVariable String name) {
     CategoryDTO categoryDTO = new CategoryDTO();
@@ -36,12 +38,11 @@ public class CategoryController {
     categoryDTO.setName(category.getName());
     return categoryDTO;
   }
+
   @PostMapping
-  public ResponseEntity<String> addCategory(@RequestParam("categoryId") Long categoryId,
-      @RequestParam("categoryName") String categoryName) {
-    Category category=new Category();
-    category.setId(categoryId);
-    category.setName(categoryName);
+  public ResponseEntity<String> addCategory(@RequestBody AddCategoryRequestDTO requestDTO) {
+    Category category = new Category();
+    category.setName(requestDTO.getName());
     try {
       categoryService.save(category);
       return ResponseEntity.ok("Category added successfully.");
@@ -49,4 +50,5 @@ public class CategoryController {
       return ResponseEntity.badRequest().body("Failed to add category: " + e.getMessage());
     }
   }
+
 }

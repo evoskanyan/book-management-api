@@ -1,6 +1,6 @@
 package com.example.task.services;
 
-import com.example.task.entities.Review;
+import com.example.task.models.Review;
 import com.example.task.exceptions.ReviewNotFoundException;
 import org.springframework.stereotype.Service;
 

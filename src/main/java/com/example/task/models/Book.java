@@ -1,4 +1,4 @@
-package com.example.task.entities;
+package com.example.task.models;
 
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
@@ -10,38 +10,36 @@ import jakarta.persistence.Table;
 import lombok.Getter;
 import lombok.Setter;
 
-import java.sql.Blob;
-
 @Getter
 @Entity
-@Table(name = "book")
+@Table(name = "books")
 public class Book {
 
   @Id
   @GeneratedValue(strategy = GenerationType.IDENTITY)
-  @Column(name = "BookID")
+  @Column(name = "book_id")
   @Setter
   private Long id;
 
-  @Column(name = "Title", nullable = false)
+  @Column(name = "title", nullable = false)
   @Getter
   @Setter
   private String title;
 
-  @Column(name = "Author", nullable = false)
+  @Column(name = "author", nullable = false)
   @Getter
   @Setter
   private String author;
 
   @Getter
   @Setter
-  @Column(name = "Content", columnDefinition = "TEXT")
+  @Column(name = "content", columnDefinition = "TEXT")
   @Lob
   private String content;
 
   @Getter
   @Setter
-  @Column(name = "CategoryID")
+  @Column(name = "category_id")
   private Long categoryId;
 
 }

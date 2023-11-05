@@ -1,4 +1,4 @@
-package com.example.task.entities;
+package com.example.task.models;
 
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
@@ -11,17 +11,17 @@ import lombok.Setter;
 
 @Getter
 @Entity
-@Table(name = "category")
+@Table(name = "categories")
 public class Category {
 
   @Id
   @GeneratedValue(strategy = GenerationType.IDENTITY)
-  @Column(name = "CategoryID")
-  @Setter
+  @Column(name = "category_id")
   private Long id;
 
-  @Column(name = "Name", nullable = false)
+  @Column(name = "name", nullable = false)
   @Getter
   @Setter
   private String name;
+
 }

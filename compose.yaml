@@ -1,11 +1,12 @@
+version: "3.8"
+
 services:
   mysql:
-    image: 'mysql:latest'
+    image: 'mysql:8.2.0'
     environment:
-      - 'MYSQL_DATABASE=mydatabase'
-      - 'MYSQL_PASSWORD=secret'
-      - 'MYSQL_ROOT_PASSWORD=verysecret'
-      - 'MYSQL_USER=myuser'
+      - 'MYSQL_DATABASE=books_management_api_db'
+      - 'MYSQL_PASSWORD=P@ssw0rd'
+      - 'MYSQL_ROOT_PASSWORD=P@ssw0rd'
+      - 'MYSQL_USER=api_user'
     ports:
       - '3306:3306'
-version: "3.8"

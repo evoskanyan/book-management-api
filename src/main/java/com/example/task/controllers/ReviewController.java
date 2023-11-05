@@ -1,8 +1,8 @@
 package com.example.task.controllers;
 
-import com.example.task.entities.Book;
-import com.example.task.entities.Review;
+import com.example.task.dtos.reviews.AddReviewRequestDTO;
 import com.example.task.exceptions.BookNotFoundException;
+import com.example.task.models.Review;
 import com.example.task.services.BookService;
 import com.example.task.services.ReviewService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -27,20 +27,25 @@ public class ReviewController {
   }
 
   @PostMapping
-  public ResponseEntity<String> addReview(@RequestBody Review review) {
-    // Check if the book with the specified ID exists
+  public ResponseEntity<String> addReview(@RequestBody AddReviewRequestDTO requestDto) {
     try {
-      Book book = bookService.get(review.getBookID());
+      // Check if the book with the specified ID exists
+      bookService.get(requestDto.getBookId());
     } catch (BookNotFoundException e) {
       return ResponseEntity.status(HttpStatus.BAD_REQUEST).body("Book doesn't exist.");
     }
     // Check if the reviewer with the specified email exists
-    Review existingReview = reviewService.getReviewByReviewerEmailAndBookId(review.getReviewerEmail(),
-        review.getBookID());
+    Review existingReview = reviewService.getReviewByReviewerEmailAndBookId(requestDto.getReviewerEmail(),
+        requestDto.getBookId());
     if (existingReview != null) {
       return ResponseEntity.status(HttpStatus.BAD_REQUEST).body("Reviewer has already reviewed this book.");
     }
 
+    var review = new Review();
+    review.setBookID(requestDto.getBookId());
+    review.setReviewerEmail(requestDto.getReviewerEmail());
+    review.setComment(requestDto.getComment());
+    review.setRating(requestDto.getRating());
     reviewService.addReview(review);
 
     return ResponseEntity.status(HttpStatus.CREATED).body("Review added successfully.");

@@ -1,6 +1,6 @@
 package com.example.task.dtos;
 
-import com.example.task.entities.Category;
+import com.example.task.models.Category;
 import jakarta.persistence.Lob;
 import lombok.Getter;
 import lombok.Setter;

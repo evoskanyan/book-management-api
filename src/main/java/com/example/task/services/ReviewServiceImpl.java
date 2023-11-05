@@ -1,6 +1,6 @@
 package com.example.task.services;
 
-import com.example.task.entities.Review;
+import com.example.task.models.Review;
 import com.example.task.exceptions.ReviewNotFoundException;
 import com.example.task.repositories.ReviewRepository;
 import org.springframework.beans.factory.annotation.Autowired;

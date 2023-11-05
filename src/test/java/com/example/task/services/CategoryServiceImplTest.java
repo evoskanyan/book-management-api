@@ -1,6 +1,6 @@
 package com.example.task.services;
 
-import com.example.task.entities.Category;
+import com.example.task.models.Category;
 import com.example.task.exceptions.CategoryNotFoundException;
 import com.example.task.repositories.CategoryRepository;
 import org.junit.jupiter.api.Test;

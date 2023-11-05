@@ -1,6 +1,6 @@
 package com.example.task.services;
 
-import com.example.task.entities.Category;
+import com.example.task.models.Category;
 
 public interface CategoryService {
 
