@@ -10,6 +10,7 @@ import com.example.task.services.CategoryService;
 import lombok.RequiredArgsConstructor;
 import org.apache.pdfbox.pdmodel.PDDocument;
 import org.apache.pdfbox.text.PDFTextStripper;
+import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -62,7 +63,7 @@ public class BookController {
 
   @PostMapping("/add")
   public ResponseEntity<String> addBook(@RequestParam("file") MultipartFile file, @RequestParam("title") String title,
-      @RequestParam("author") String author, @RequestParam("categoryName") String categoryName) throws IOException {
+      @RequestParam("author") String author, @RequestParam("categoryName") String categoryName) {
 
     if (file.getSize() > 5 * 1024 * 1024) {
       return ResponseEntity.badRequest().body("File size exceeds the limit.");
@@ -87,7 +88,9 @@ public class BookController {
     try (PDDocument document = PDDocument.load(file.getBytes())) {
       PDFTextStripper textStripper = new PDFTextStripper();
       content = textStripper.getText(document);
-    }
+    }catch (IOException e) {
+    return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body("Error while processing the PDF file.");
+  }
     book.setContent(content);
 
     bookService.save(book);
