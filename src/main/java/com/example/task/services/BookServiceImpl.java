@@ -30,7 +30,7 @@ public class BookServiceImpl implements BookService {
 
   @Override
   public List<Book> search(final String searchString) {
-    return repository.search(searchString);
+    return repository.search(searchString.toLowerCase());
   }
 
   @Override
@@ -41,7 +41,7 @@ public class BookServiceImpl implements BookService {
   @Override
   public void delete(Long id) {
     Optional<Book> author = repository.findById(id);
-    repository.delete(author.orElseThrow(NullPointerException::new));
+    repository.delete(author.orElseThrow(BookNotFoundException::new));
   }
 
 }

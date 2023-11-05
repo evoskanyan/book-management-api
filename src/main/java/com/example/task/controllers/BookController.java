@@ -7,6 +7,7 @@ import com.example.task.entities.Category;
 import com.example.task.exceptions.CategoryNotFoundException;
 import com.example.task.services.BookService;
 import com.example.task.services.CategoryService;
+import com.example.task.services.ReviewService;
 import lombok.RequiredArgsConstructor;
 import org.apache.pdfbox.pdmodel.PDDocument;
 import org.apache.pdfbox.text.PDFTextStripper;
@@ -31,6 +32,7 @@ public class BookController {
 
   private final BookService     bookService;
   private final CategoryService categoryService;
+  private final ReviewService   reviewService;
 
   @GetMapping("/{id}")
   public BookDTO getBookById(@PathVariable Long id) {
@@ -46,14 +48,15 @@ public class BookController {
 
   @GetMapping("/all")
   public List<BookWithCategoryResponseDTO> getAllBooks() {
-    BookWithCategoryResponseDTO bookDTO = new BookWithCategoryResponseDTO();
     List<Book> books = bookService.getAll();
     List<BookWithCategoryResponseDTO> dtos = new ArrayList<>();
     for (Book book : books) {
+      BookWithCategoryResponseDTO bookDTO = new BookWithCategoryResponseDTO();
       bookDTO.setAuthor(book.getAuthor());
       bookDTO.setTitle(book.getTitle());
       bookDTO.setId(book.getId());
       bookDTO.setContent(book.getContent());
+      bookDTO.setAvgRating(reviewService.getAverageRatingByBookId(book.getId()));
       Category category = categoryService.get(book.getCategoryId());
       bookDTO.setCategory(category);
       dtos.add(bookDTO);
@@ -61,7 +64,7 @@ public class BookController {
     return dtos;
   }
 
-  @PostMapping("/add")
+  @PostMapping
   public ResponseEntity<String> addBook(@RequestParam("file") MultipartFile file, @RequestParam("title") String title,
       @RequestParam("author") String author, @RequestParam("categoryName") String categoryName) {
 
@@ -70,7 +73,6 @@ public class BookController {
     }
     Category category;
     try {
-
       category = categoryService.get(categoryName);
 
     } catch (CategoryNotFoundException ex) {
@@ -101,7 +103,7 @@ public class BookController {
   @GetMapping("/search")
   public ResponseEntity<List<Book>> searchBooks(@RequestParam(value = "query") String query) {
     try {
-      List<Book> searchResults = bookService.search(query.toLowerCase());
+      List<Book> searchResults = bookService.search(query);
 
       if (searchResults.isEmpty()) {
         return ResponseEntity.notFound().build();

@@ -23,5 +23,8 @@ public class BookWithCategoryResponseDTO {
   @Getter
   @Setter
   private Category category;
+  @Getter
+  @Setter
+  private Double   avgRating;
 
 }

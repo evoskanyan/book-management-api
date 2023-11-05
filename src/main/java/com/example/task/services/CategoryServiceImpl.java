@@ -38,7 +38,7 @@ public class CategoryServiceImpl implements CategoryService {
   @Override
   public void delete(Long id) {
     Optional<Category> category = repository.findById(id);
-    repository.delete(category.orElseThrow(NullPointerException::new));
+    repository.delete(category.orElseThrow(CategoryNotFoundException::new));
   }
 
 }
