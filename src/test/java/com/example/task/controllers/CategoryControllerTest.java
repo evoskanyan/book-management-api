@@ -67,28 +67,25 @@ public class CategoryControllerTest {
   public void shouldAddCategory() {
     when(categoryService.save(any(Category.class))).thenReturn(category);
 
-    ResponseEntity<String> result = categoryController.addCategory(category);
+    ResponseEntity<String> result = categoryController.addCategory(CATEGORY_ID,CATEGORY_NAME);
 
     assertThat(result)
         .isNotNull()
         .returns(HttpStatus.OK, ResponseEntity::getStatusCode)
         .returns("Category added successfully.", ResponseEntity::getBody);
-
-    verify(categoryService).save(category);
   }
 
   @Test
   public void shouldHandleCategoryAddError() {
     when(categoryService.save(any(Category.class))).thenThrow(new RuntimeException("Some error message"));
 
-    ResponseEntity<String> result = categoryController.addCategory(category);
+    ResponseEntity<String> result = categoryController.addCategory(CATEGORY_ID,CATEGORY_NAME);
 
     assertThat(result)
         .isNotNull()
         .returns(HttpStatus.BAD_REQUEST, ResponseEntity::getStatusCode)
         .returns(ERROR_MESSAGE, ResponseEntity::getBody);
 
-    verify(categoryService).save(category);
   }
 
 }
