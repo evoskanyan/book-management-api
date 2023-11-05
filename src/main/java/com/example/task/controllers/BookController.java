@@ -1,7 +1,7 @@
 package com.example.task.controllers;
 
-import com.example.task.dtos.BookDTO;
-import com.example.task.dtos.BookWithCategoryResponseDTO;
+import com.example.task.dtos.books.BookDTO;
+import com.example.task.dtos.books.BookWithCategoryResponseDTO;
 import com.example.task.exceptions.CategoryNotFoundException;
 import com.example.task.models.Book;
 import com.example.task.models.Category;

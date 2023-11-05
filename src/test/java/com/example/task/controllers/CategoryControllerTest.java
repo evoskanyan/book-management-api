@@ -1,6 +1,7 @@
 package com.example.task.controllers;
 
-import com.example.task.dtos.CategoryDTO;
+import com.example.task.dtos.categories.CategoryDTO;
+import com.example.task.dtos.categories.AddCategoryRequestDTO;
 import com.example.task.models.Category;
 import com.example.task.services.CategoryService;
 import org.junit.jupiter.api.Test;
@@ -63,29 +64,32 @@ public class CategoryControllerTest {
     verify(categoryService).get(CATEGORY_NAME);
   }
 
-//  @Test
-//  public void shouldAddCategory() {
-//    when(categoryService.save(any(Category.class))).thenReturn(category);
-//
-//    ResponseEntity<String> result = categoryController.addCategory(CATEGORY_ID,CATEGORY_NAME);
-//
-//    assertThat(result)
-//        .isNotNull()
-//        .returns(HttpStatus.OK, ResponseEntity::getStatusCode)
-//        .returns("Category added successfully.", ResponseEntity::getBody);
-//  }
+  @Test
+  public void shouldAddCategory() {
+    when(categoryService.save(any(Category.class))).thenReturn(category);
 
-//  @Test
-//  public void shouldHandleCategoryAddError() {
-//    when(categoryService.save(any(Category.class))).thenThrow(new RuntimeException("Some error message"));
-//
-//    ResponseEntity<String> result = categoryController.addCategory(CATEGORY_ID,CATEGORY_NAME);
-//
-//    assertThat(result)
-//        .isNotNull()
-//        .returns(HttpStatus.BAD_REQUEST, ResponseEntity::getStatusCode)
-//        .returns(ERROR_MESSAGE, ResponseEntity::getBody);
-//
-//  }
+    var requestDto = new AddCategoryRequestDTO();
+    requestDto.setName(CATEGORY_NAME);
+    ResponseEntity<String> result = categoryController.addCategory(requestDto);
+
+    assertThat(result)
+        .isNotNull()
+        .returns(HttpStatus.OK, ResponseEntity::getStatusCode)
+        .returns("Category added successfully.", ResponseEntity::getBody);
+  }
+
+  @Test
+  public void shouldHandleCategoryAddError() {
+    when(categoryService.save(any(Category.class))).thenThrow(new RuntimeException("Some error message"));
+    var requestDto = new AddCategoryRequestDTO();
+    requestDto.setName(CATEGORY_NAME);
+    ResponseEntity<String> result = categoryController.addCategory(requestDto);
+
+    assertThat(result)
+        .isNotNull()
+        .returns(HttpStatus.BAD_REQUEST, ResponseEntity::getStatusCode)
+        .returns(ERROR_MESSAGE, ResponseEntity::getBody);
+
+  }
 
 }

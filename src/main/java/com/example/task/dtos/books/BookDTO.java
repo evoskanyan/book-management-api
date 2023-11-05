@@ -1,26 +1,18 @@
-package com.example.task.dtos;
+package com.example.task.dtos.books;
 
 import jakarta.persistence.Lob;
+import lombok.Data;
 import lombok.Getter;
 import lombok.Setter;
 
+@Data
 public class BookDTO {
 
-  @Getter
-  @Setter
   private Long   id;
-  @Getter
-  @Setter
   private String title;
-  @Getter
-  @Setter
   private String author;
-  @Getter
-  @Setter
   @Lob
   private String content;
-  @Getter
-  @Setter
   private Long   categoryId;
 
 }

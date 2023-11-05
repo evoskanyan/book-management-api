@@ -1,14 +1,13 @@
-package com.example.task.dtos;
+package com.example.task.dtos.categories;
 
+import lombok.Data;
 import lombok.Getter;
 import lombok.Setter;
 
+@Data
 public class CategoryDTO {
-  @Getter
-  @Setter
+
   private Long   id;
-  @Getter
-  @Setter
   private String name;
 
 }

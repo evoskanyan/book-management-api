@@ -22,7 +22,7 @@ import static org.mockito.Mockito.when;
 public class BookServiceImplTest {
 
   private static final Long   ID            = 1L;
-  private static final String SEARCH_STRING = "Sample";
+  private static final String SEARCH_STRING = "sample";
   private static final String ERROR_MESSAGE = "Book is not found";
 
   @InjectMocks
